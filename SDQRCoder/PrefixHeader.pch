@@ -1,0 +1,35 @@
+//
+//  PrefixHeader.pch
+//  SDQRCoder
+//
+//  Created by songdh on 16/10/12.
+//  Copyright © 2016年 songdh. All rights reserved.
+//
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+
+
+#define FontSize(size) [UIFont systemFontOfSize:size]
+#define BoldFontSize(size) [UIFont boldSystemFontOfSize:size]
+
+
+#define WEAKSELF(weakSelf) typeof(self) __weak weakSelf = self;
+#define STRONGSELF(strongSelf,weakSelf) typeof(weakSelf) __strong strongSelf = weakSelf;
+
+#define screenBounds [UIScreen mainScreen].bounds
+#define screenWidth CGRectGetWidth(screenBounds)
+#define screenHeight CGRectGetHeight(screenBounds)
+#define NAV_BAR_HEIGHT 64.0f
+
+#import "Pub.h"
+#import "UIImage+MobExtension.h"
+#import "UIColor+Extension.h"
+#import "UIView+Frame.h"
+
+#define MAS_SHORTHAND_GLOBALS
+#import "Masonry.h"
+
+#endif
