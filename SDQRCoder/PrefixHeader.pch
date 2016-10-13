@@ -28,7 +28,7 @@
 #import "UIImage+MobExtension.h"
 #import "UIColor+Extension.h"
 #import "UIView+Frame.h"
-
+#import "ZBarSDK.h"
 #define MAS_SHORTHAND_GLOBALS
 #import "Masonry.h"
 
