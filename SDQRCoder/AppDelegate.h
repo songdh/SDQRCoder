@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  SDQRCoder
 //
-//  Created by songdh on 16/10/12.
+//  Created by 宋东昊 on 16/10/14.
 //  Copyright © 2016年 songdh. All rights reserved.
 //
 

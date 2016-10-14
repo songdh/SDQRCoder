@@ -47,3 +47,8 @@ CGRect CGRectSizeMake(CGFloat x, CGFloat y, CGSize size)
     rect.size.height = ceilf(size.height);
     return rect;
 }
+
+CGFloat CGRatioFloat(CGFloat x)
+{
+    return ceilf((x*screenWidth)/320);
+}

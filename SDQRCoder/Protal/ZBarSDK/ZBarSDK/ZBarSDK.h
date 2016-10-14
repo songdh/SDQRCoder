@@ -22,7 +22,6 @@
  *------------------------------------------------------------------------*/
 
 #import "zbar.h"
-#import "zbarConfig.h"
 
 #import "ZBarSymbol.h"
 #import "ZBarImage.h"

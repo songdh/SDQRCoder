@@ -21,3 +21,4 @@
 @end
 
 CGRect CGRectSizeMake(CGFloat x, CGFloat y, CGSize size);
+CGFloat CGRatioFloat(CGFloat x);

@@ -10,7 +10,6 @@
 #import "SDMyQRCodeViewController.h"
 #import "SCLScanPreviewView.h"
 #import "SCLScanHudView.h"
-#import "ZBarSDK.h"
 
 typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
     AVCamSetupResultSuccess,
@@ -480,14 +479,14 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
         return feature.messageString;
     }else {
         //采用ZBar识别
-        CGImageRef cgImageRef = image.CGImage;
-        
-        ZBarQRDecoder *QRDecoder = [[ZBarQRDecoder alloc] init];
-        NSArray *symbols = [QRDecoder scanImage:cgImageRef];
-        
-        for (ZBarSymbol *symbol in symbols) {
-            return symbol.data;
-        }
+//        CGImageRef cgImageRef = image.CGImage;
+//        
+//        ZBarQRDecoder *QRDecoder = [[ZBarQRDecoder alloc] init];
+//        NSArray *symbols = [QRDecoder scanImage:cgImageRef];
+//        
+//        for (ZBarSymbol *symbol in symbols) {
+//            return symbol.data;
+//        }
         
     }
     return nil;

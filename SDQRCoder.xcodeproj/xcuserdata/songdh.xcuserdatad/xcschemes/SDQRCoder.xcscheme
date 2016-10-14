@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DA1DC6681DAE7F9100755837"
+               BlueprintIdentifier = "DA91DF7C1DB0869100A2D5E5"
                BuildableName = "SDQRCoder.app"
                BlueprintName = "SDQRCoder"
                ReferencedContainer = "container:SDQRCoder.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DA1DC6681DAE7F9100755837"
+            BlueprintIdentifier = "DA91DF7C1DB0869100A2D5E5"
             BuildableName = "SDQRCoder.app"
             BlueprintName = "SDQRCoder"
             ReferencedContainer = "container:SDQRCoder.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DA1DC6681DAE7F9100755837"
+            BlueprintIdentifier = "DA91DF7C1DB0869100A2D5E5"
             BuildableName = "SDQRCoder.app"
             BlueprintName = "SDQRCoder"
             ReferencedContainer = "container:SDQRCoder.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DA1DC6681DAE7F9100755837"
+            BlueprintIdentifier = "DA91DF7C1DB0869100A2D5E5"
             BuildableName = "SDQRCoder.app"
             BlueprintName = "SDQRCoder"
             ReferencedContainer = "container:SDQRCoder.xcodeproj">

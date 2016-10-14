@@ -22,6 +22,14 @@
     self.title = @"我的二维码";
     self.view.backgroundColor = [UIColor darkGrayColor];
     self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom;
+    
+    if (self.navigationController.viewControllers.count <= 1) {
+        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(onLeftBarClick:)];
+        self.navigationItem.leftBarButtonItem = leftItem;
+    }
+
+    
+    
     [self setupUI];
     
     [self generateQRCode];
@@ -34,6 +42,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)onLeftBarClick:(id)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 -(void)setupUI
 {
     //背景卡片
@@ -41,14 +54,6 @@
     _bgView.backgroundColor = [UIColor whiteColor];
     _bgView.layer.cornerRadius = 4.0f;
     [self.view addSubview:_bgView];
-    
-    //背景
-    [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(22);
-        make.right.equalTo(-22);
-        make.top.equalTo(60);
-        make.bottom.equalTo(-60);
-    }];
     
     //个人信息
     //头像
@@ -78,15 +83,22 @@
     tipLabel.textAlignment = NSTextAlignmentCenter;
     [_bgView addSubview:tipLabel];
     
+    //背景
+    [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(CGRatioFloat(22));
+        make.right.equalTo(-CGRatioFloat(22));
+        make.center.equalTo(0);
+    }];
     
     CGFloat padding = 20;
     CGFloat interval = 20;
     //userInfo
     [avatorView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(padding);
-        make.width.equalTo(avatorView.mas_height);
+        make.height.equalTo(50);
+        make.width.equalTo(50);
         make.top.equalTo(padding);
-        make.bottom.greaterThanOrEqualTo(_cardView.mas_top).offset(-interval);
+        make.bottom.equalTo(_cardView.mas_top).offset(-interval);
     }];
     
     //cardView
@@ -94,15 +106,15 @@
         make.left.equalTo(padding);
         make.right.equalTo(-padding);
         make.height.equalTo(_cardView.mas_width);
-        make.top.greaterThanOrEqualTo(avatorView.mas_bottom).offset(interval);
-        make.bottom.greaterThanOrEqualTo(tipLabel.mas_top).offset(-interval);
+        make.top.equalTo(avatorView.mas_bottom).offset(interval);
+        make.bottom.equalTo(tipLabel.mas_top).offset(-interval);
     }];
     
     //tipView
     [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(-padding);
         make.centerX.equalTo(_bgView.mas_centerX);
-        make.top.greaterThanOrEqualTo(_cardView.mas_bottom).offset(interval);
+        make.top.equalTo(_cardView.mas_bottom).offset(interval);
     }];
     
     //个人信息
@@ -197,8 +209,9 @@
     iconView.image = avator;
     
     [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.insets(UIEdgeInsetsMake(55, 55, 55, 55));
+        make.center.equalTo(0);
+        make.width.equalTo(_QRCodeImageView.mas_width).multipliedBy(0.2f);
+        make.height.equalTo(iconView.mas_width);
     }];
 }
-
 @end
