@@ -53,6 +53,7 @@
 		DA91E0231DB08D3500A2D5E5 /* ZBarImageScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = DA91E0051DB08D3500A2D5E5 /* ZBarImageScanner.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DA91E0241DB08D3500A2D5E5 /* ZBarQRDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = DA91E0071DB08D3500A2D5E5 /* ZBarQRDecoder.m */; };
 		DA91E0251DB08D3500A2D5E5 /* ZBarSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = DA91E00A1DB08D3500A2D5E5 /* ZBarSymbol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DA91E0281DB4E26D00A2D5E5 /* SDMyColorQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA91E0271DB4E26D00A2D5E5 /* SDMyColorQRCodeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +160,8 @@
 		DA91E0081DB08D3500A2D5E5 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
 		DA91E0091DB08D3500A2D5E5 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
 		DA91E00A1DB08D3500A2D5E5 /* ZBarSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBarSymbol.m; sourceTree = "<group>"; };
+		DA91E0261DB4E26D00A2D5E5 /* SDMyColorQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDMyColorQRCodeViewController.h; sourceTree = "<group>"; };
+		DA91E0271DB4E26D00A2D5E5 /* SDMyColorQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDMyColorQRCodeViewController.m; sourceTree = "<group>"; };
 		E2B3DD6A43BEF3EEA324138A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -253,6 +256,8 @@
 				DA91DF9E1DB087C500A2D5E5 /* SDMyQRCodeViewController.m */,
 				DA91DF9F1DB087C500A2D5E5 /* SDScanQRViewController.h */,
 				DA91DFA01DB087C500A2D5E5 /* SDScanQRViewController.m */,
+				DA91E0261DB4E26D00A2D5E5 /* SDMyColorQRCodeViewController.h */,
+				DA91E0271DB4E26D00A2D5E5 /* SDMyColorQRCodeViewController.m */,
 			);
 			path = Protal;
 			sourceTree = "<group>";
@@ -591,6 +596,7 @@
 				DA91E0211DB08D3500A2D5E5 /* symbol.c in Sources */,
 				DA91E01C1DB08D3500A2D5E5 /* qrdectxt.c in Sources */,
 				DA91E01E1DB08D3500A2D5E5 /* util.c in Sources */,
+				DA91E0281DB4E26D00A2D5E5 /* SDMyColorQRCodeViewController.m in Sources */,
 				DA91E00C1DB08D3500A2D5E5 /* codabar.c in Sources */,
 				DA91DFB61DB087C500A2D5E5 /* UIView+Frame.m in Sources */,
 			);

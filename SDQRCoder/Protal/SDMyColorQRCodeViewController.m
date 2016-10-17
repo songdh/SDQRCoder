@@ -1,21 +1,20 @@
 //
-//  SDMyQRCodeViewController.m
+//  SDMyColorQRCodeViewController.m
 //  SDQRCoder
 //
-//  Created by songdh on 16/10/12.
+//  Created by 宋东昊 on 16/10/17.
 //  Copyright © 2016年 songdh. All rights reserved.
 //
 
-#import "SDMyQRCodeViewController.h"
 #import "SDMyColorQRCodeViewController.h"
 
-@interface SDMyQRCodeViewController ()
+@interface SDMyColorQRCodeViewController ()
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIView *cardView;
 @property (nonatomic, strong) UIImageView *QRCodeImageView;
 @end
 
-@implementation SDMyQRCodeViewController
+@implementation SDMyColorQRCodeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,16 +22,6 @@
     self.title = @"我的二维码";
     self.view.backgroundColor = [UIColor darkGrayColor];
     self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom;
-    
-    if (self.navigationController.viewControllers.count <= 1) {
-        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(onLeftBarClick:)];
-        self.navigationItem.leftBarButtonItem = leftItem;
-    }
-    
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"彩色二维码" style:UIBarButtonItemStylePlain target:self action:@selector(onRightBarClick:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
-
-    
     
     [self setupUI];
     
@@ -44,17 +33,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)onLeftBarClick:(id)sender
-{
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)onRightBarClick:(id)sender
-{
-    SDMyColorQRCodeViewController *controller = [[SDMyColorQRCodeViewController alloc]init];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 -(void)setupUI
@@ -199,11 +177,30 @@
     [filter setValue:inputData forKey:@"inputMessage"];
     CIImage *outputImage = [filter outputImage];
     
+    
+    //与黑白二维码不同，此处添加色彩过滤器
+    CIFilter * colorFilter = [CIFilter filterWithName:@"CIFalseColor"];
+    if (!colorFilter) {
+        return;
+    }
+    [colorFilter setDefaults];
+    
+    
+    //KVC赋值
+    [colorFilter setValue:outputImage forKey:@"inputImage"];
+    
+    //设置CIColor
+    [colorFilter setValue:[CIColor colorWithCGColor:[UIColor orangeColor].CGColor] forKey:@"inputColor0"];
+    [colorFilter setValue:[CIColor colorWithCGColor:[UIColor brownColor].CGColor] forKey:@"inputColor1"];
+    
+    outputImage = [colorFilter outputImage];
+    
     // 输出的图片比较小，需要放大。此处放大20倍
     outputImage = [outputImage imageByApplyingTransform:CGAffineTransformMakeScale(20, 20)];
-    
+
     UIImage *QRImage = [UIImage imageWithCIImage:outputImage];
     _QRCodeImageView.image = QRImage;
+    
 }
 
 -(void)drawSmallIcon
@@ -224,4 +221,5 @@
         make.height.equalTo(iconView.mas_width);
     }];
 }
+
 @end
