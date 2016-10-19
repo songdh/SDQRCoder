@@ -30,6 +30,8 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 @property (nonatomic) AVCaptureDeviceInput *videoDeviceInput;
 @property (nonatomic) AVCaptureMetadataOutput *videoDeviceOutput;
 @property (nonatomic) dispatch_semaphore_t semaphore;
+@property (nonatomic) AVCaptureDevice *frontCamera;
+@property (nonatomic) AVCaptureDevice *backCamera;
 
 @end
 
@@ -176,6 +178,9 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
         [weakSelf showMyQRCodeView];
     };
     [self.view insertSubview:_previewView atIndex:0];
+    
+    [_previewView.lightButton addTarget:self action:@selector(onLight:) forControlEvents:UIControlEventTouchUpInside];
+    [_previewView.switchButton addTarget:self action:@selector(onSwitch:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //创建提示界面
@@ -196,9 +201,9 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
     self.previewView.session = self.session;
     self.previewView.videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
-    //设置为当前支持的最高采集率
+    //设置为当前支持的最高采集率720p
     NSArray *allSessionPresets = @[//AVCaptureSessionPreset3840x2160,
-                                   AVCaptureSessionPreset1920x1080,
+                                   //AVCaptureSessionPreset1920x1080,
                                    AVCaptureSessionPresetiFrame1280x720,
                                    AVCaptureSessionPresetiFrame960x540,
                                    AVCaptureSessionPreset1280x720,
@@ -231,6 +236,17 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
     }
     
     [self.session beginConfiguration];
+    
+    //获取前后摄像头
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices) {
+        if (device.position == AVCaptureDevicePositionFront) {
+            self.frontCamera = device;
+            
+        }else if (device.position == AVCaptureDevicePositionBack) {
+            self.backCamera = device;
+        }
+    }
     
     //获取默认的设备
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -562,6 +578,79 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
     
     // 播放音频
     AudioServicesPlaySystemSound(soundID);
+}
+
+
+-(void)onLight:(id)sender
+{
+    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if (captureDevice.hasTorch && captureDevice.torchAvailable) {
+        [captureDevice lockForConfiguration:nil];
+        AVCaptureTorchMode torchMode = [captureDevice torchMode];
+        if (torchMode == AVCaptureTorchModeOff) {
+            if ([captureDevice isTorchModeSupported:AVCaptureTorchModeOn]) {
+                [captureDevice setTorchMode:AVCaptureTorchModeOn];
+            }
+        } else {
+            if ([captureDevice isTorchModeSupported:AVCaptureTorchModeOff]) {
+                [captureDevice setTorchMode:AVCaptureTorchModeOff];
+            }
+        }
+        [captureDevice unlockForConfiguration];
+    }
+}
+
+
+-(void)onSwitch:(id)sender
+{
+    if (!self.backCamera || !self.frontCamera) {
+        return;
+    }
+    dispatch_async(self.sessionQueue, ^{
+        
+        [self.session beginConfiguration];
+        
+        BOOL isFront = (self.videoDeviceInput.device.position == AVCaptureDevicePositionFront)?YES:NO;
+        // Remove an existing capture device.
+        if (self.session && self.videoDeviceInput) {
+            [self.session removeInput:self.videoDeviceInput];
+            self.videoDeviceInput = nil;
+        }
+        
+        // Add a new capture device.
+        NSError *error = nil;
+        if (isFront) {
+            self.videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.backCamera error:&error];
+        }else {
+            self.videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.frontCamera error:&error];
+        }
+        
+        
+        // Reset the preset.
+        if (self.videoDeviceInput) {
+            NSArray *allSessionPresets = @[AVCaptureSessionPresetiFrame1280x720,
+                                           AVCaptureSessionPresetiFrame960x540,
+                                           AVCaptureSessionPreset1280x720,
+                                           AVCaptureSessionPreset640x480,
+                                           AVCaptureSessionPreset352x288,
+                                           AVCaptureSessionPresetHigh,
+                                           AVCaptureSessionPresetMedium,
+                                           AVCaptureSessionPresetLow,
+                                           /*AVCaptureSessionPresetPhoto*/];
+            for (NSString *sessionPreset in allSessionPresets) {
+                if ([self.session canSetSessionPreset:sessionPreset]) {
+                    self.session.sessionPreset = sessionPreset;
+                    break;
+                }
+            }
+        }
+        
+        if ([self.session canAddInput:self.videoDeviceInput]) {
+            [self.session addInput:self.videoDeviceInput];
+        }
+        [self.session commitConfiguration];
+    });
+    
 }
 
 @end

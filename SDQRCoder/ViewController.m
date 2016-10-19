@@ -29,9 +29,10 @@
     [scanButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(100);
         make.right.equalTo(-100);
-        make.top.equalTo(200);
+        make.bottom.equalTo(self.view.mas_centerY).offset(-25);
         make.height.equalTo(50);
     }];
+    
     
     
     UIButton *codeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -44,7 +45,7 @@
         make.left.equalTo(scanButton);
         make.right.equalTo(scanButton);
         make.height.equalTo(scanButton);
-        make.top.equalTo(scanButton.mas_bottom).offset(50);
+        make.top.equalTo(self.view.mas_centerY).offset(25);
     }];
     
     

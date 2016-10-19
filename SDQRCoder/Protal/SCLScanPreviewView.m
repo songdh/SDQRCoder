@@ -19,6 +19,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         [self commonInt];
+        [self createButtons];
     }
     return self;
 }
@@ -154,6 +155,29 @@
     if (self.buttonActionBlock) {
         self.buttonActionBlock();
     }
+}
+
+-(void)createButtons
+{
+    _lightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_lightButton setImage:[UIImage imageNamed:@"QR_light"] forState:UIControlStateNormal];
+    [self addSubview:_lightButton];
+    
+    _switchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_switchButton setImage:[UIImage imageNamed:@"QR_switch"] forState:UIControlStateNormal];
+    [self addSubview:_switchButton];
+    
+    [_lightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(CGSizeMake(40, 35));
+        make.centerX.equalTo(self.mas_centerX).offset(-50);
+        make.bottom.equalTo(-30);
+    }];
+    
+    [_switchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(CGSizeMake(40, 35));
+        make.centerX.equalTo(self.mas_centerX).offset(50);
+        make.bottom.equalTo(-30);
+    }];
 }
 
 #pragma mark - action

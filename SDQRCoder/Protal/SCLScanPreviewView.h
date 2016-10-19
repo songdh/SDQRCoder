@@ -19,6 +19,9 @@
 
 @property (nonatomic, copy) void (^buttonActionBlock)();
 
+@property (nonatomic, strong) UIButton *lightButton;
+@property (nonatomic, strong) UIButton *switchButton;
+
 //扫描时的滚动条
 -(void)startScroll;
 -(void)stopScroll;

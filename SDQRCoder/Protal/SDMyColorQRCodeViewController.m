@@ -206,8 +206,7 @@
 -(void)drawSmallIcon
 {
     UIImageView *iconView = [[UIImageView alloc]init];
-    iconView.layer.cornerRadius = 4.0f;
-    iconView.layer.borderColor = [UIColor whiteColor].CGColor;
+    iconView.layer.borderColor = [UIColor orangeColor].CGColor;
     iconView.layer.borderWidth = 2.0f;
     [_QRCodeImageView addSubview:iconView];
     
